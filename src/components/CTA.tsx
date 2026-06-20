@@ -56,8 +56,8 @@ export function CTA() {
               <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-blue opacity-20 blur-3xl" />
             </div>
 
-            <div className="relative grid items-center gap-10 lg:grid-cols-2">
-              <div className="text-center lg:text-left">
+            <div className="relative grid items-stretch gap-10 lg:grid-cols-2">
+              <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur">
                   Старт за один день
                 </span>
@@ -80,15 +80,17 @@ export function CTA() {
                   ))}
                 </div>
 
-                <div className="mt-7 flex justify-center lg:justify-start">
+                <div className="mt-auto flex w-full justify-center pt-8">
                   <a
                     href={SITE.telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/15"
+                    className="btn-running is-blue"
                   >
-                    <Send className="h-4 w-4 text-brand-pink" />
-                    Написать в Telegram
+                    <span className="btn-running__inner">
+                      <Send className="h-4 w-4 text-brand-blue" />
+                      Написать в Telegram
+                    </span>
                   </a>
                 </div>
               </div>
