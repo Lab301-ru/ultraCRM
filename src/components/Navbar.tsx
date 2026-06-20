@@ -39,7 +39,7 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`mx-auto mt-3 flex w-[min(100%-1.5rem,72rem)] items-center justify-between rounded-2xl border px-4 py-2.5 transition-all duration-300 sm:px-5 ${
           scrolled
-            ? "border-ink-line bg-white/80 shadow-soft backdrop-blur-xl"
+            ? "border-ink-line bg-white/95 shadow-soft lg:bg-white/80 lg:backdrop-blur-xl"
             : "border-transparent bg-white/0"
         }`}
       >

@@ -96,7 +96,7 @@ export function CTA() {
               </div>
 
               {/* Form */}
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-8">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 lg:backdrop-blur-xl">
                 {status === "sent" ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}

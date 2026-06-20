@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Play, Sparkles, TrendingUp, Bell, CheckCircle2 } from "lucide-react";
 import { DashboardMockup } from "./DashboardMockup";
 import { AnimatedCounter } from "./ui/AnimatedCounter";
@@ -15,6 +15,19 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const yCards = useTransform(scrollYProgress, [0, 1], [0, -110]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  // Параллакс/затухание только на десктопе — на мобильных это вызывает рывки
+  // и «полупрозрачный» дашборд при скролле.
+  const [parallax, setParallax] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(
+      "(min-width: 1024px) and (pointer: fine)"
+    );
+    const update = () => setParallax(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   return (
     <section id="top" ref={ref} className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
@@ -95,7 +108,10 @@ export function Hero() {
         </div>
 
         {/* Mockup */}
-        <motion.div style={{ y, opacity }} className="relative z-0">
+        <motion.div
+          style={parallax ? { y, opacity } : undefined}
+          className="relative z-0"
+        >
           <div className="pointer-events-none absolute -inset-10 -z-10 bg-brand-gradient opacity-20 blur-3xl" />
 
           <motion.div
@@ -106,7 +122,7 @@ export function Hero() {
             style={{ perspective: 1000 }}
           >
             {/* browser chrome */}
-            <div className="flex items-center gap-2 rounded-t-[1.5rem] border-b border-ink-line bg-white/80 px-4 py-3 backdrop-blur">
+            <div className="flex items-center gap-2 rounded-t-[1.5rem] border-b border-ink-line bg-white/80 px-4 py-3 lg:backdrop-blur">
               <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
               <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
               <span className="h-3 w-3 rounded-full bg-[#28C840]" />
@@ -123,7 +139,7 @@ export function Hero() {
 
           {/* Floating stat cards */}
           <motion.div
-            style={{ y: yCards }}
+            style={parallax ? { y: yCards } : undefined}
             initial={{ opacity: 0, scale: 0.8, x: -20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -145,7 +161,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            style={{ y: yCards }}
+            style={parallax ? { y: yCards } : undefined}
             initial={{ opacity: 0, scale: 0.8, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.75 }}
@@ -165,7 +181,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            style={{ y: yCards }}
+            style={parallax ? { y: yCards } : undefined}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.9 }}
