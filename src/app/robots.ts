@@ -1,14 +1,15 @@
-import type { MetadataRoute } from "next";
+// app/robots.ts
 
-const SITE_URL = "https://ultracrm.ru";
+import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: "*",
-      allow: "/",
+      userAgent: '*',
+      allow: '/',
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
-  };
+    sitemap: 'https://ultracrm-sc.ru/sitemap.xml',
+  }
 }
+
+export const dynamic = 'force-static'
