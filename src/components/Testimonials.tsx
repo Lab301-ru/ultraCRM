@@ -72,11 +72,11 @@ export function Testimonials() {
 
         <RevealGroup
           stagger={0.07}
-          className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5"
+          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           {reviews.map((r) => (
-            <RevealItem key={r.name} className="break-inside-avoid">
-              <figure className="card relative p-6">
+            <RevealItem key={r.name} className="h-full">
+              <figure className="card relative flex h-full flex-col p-6">
                 <Quote className="absolute right-5 top-5 h-8 w-8 text-brand-pink/15" />
                 <div className="flex gap-0.5">
                   {Array.from({ length: r.rating }).map((_, i) => (
@@ -86,7 +86,7 @@ export function Testimonials() {
                 <blockquote className="mt-4 text-sm leading-relaxed text-ink">
                   {r.text}
                 </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3">
+                <figcaption className="mt-auto flex items-center gap-3 pt-5">
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${r.color} text-sm font-bold text-white`}
                   >
