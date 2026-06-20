@@ -196,6 +196,17 @@ body {
   );
 }
 
+/* Мобильная производительность: непрерывная conic-анимация и blur-glow
+   обводки сильно нагружают слабые устройства — отключаем их на тач/узких экранах */
+@media (max-width: 1023px) {
+  .btn-running {
+    animation: none;
+  }
+  .btn-running::after {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
