@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
@@ -108,15 +109,13 @@ export function DashboardMockup({ compact = false }: { compact?: boolean }) {
       {/* Sidebar */}
       <aside className="hidden w-44 shrink-0 flex-col border-r border-ink-line bg-white p-3 sm:flex">
         <div className="mb-5 flex items-center gap-2 px-1.5 pt-1">
-          <svg viewBox="0 0 40 40" className="h-6 w-6" aria-hidden>
-            <path d="M20 9 L29 33 L20 33 Z" fill="#5B7CFA" />
-            <rect x="5.5" y="8" width="8.6" height="27" rx="4.3" transform="rotate(-22 9.8 21.5)" fill="#FB5C4C" />
-            <rect x="22.5" y="6.5" width="8.6" height="22" rx="4.3" transform="rotate(20 26.8 17.5)" fill="#FBB040" />
-            <circle cx="27" cy="31.5" r="4.6" fill="#3FC56B" />
-          </svg>
-          <span className="text-sm font-extrabold">
-            Ultra<span className="gradient-text">CRM</span>
-          </span>
+          <Image
+            src="/Logo.png"
+            alt="UltraCRM"
+            width={465}
+            height={90}
+            className="h-6 w-auto"
+          />
         </div>
         <nav className="flex flex-col gap-1">
           {nav.map((n) => (
