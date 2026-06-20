@@ -174,6 +174,28 @@ body {
   color: #fff;
 }
 
+/* Голубой вариант бегущей обводки */
+.btn-running.is-blue {
+  background: conic-gradient(
+    from var(--rb-angle),
+    rgba(91, 124, 250, 0.18) 0deg,
+    rgba(91, 124, 250, 0.18) 205deg,
+    #38bdf8 248deg,
+    #5b7cfa 286deg,
+    #22d3ee 320deg,
+    rgba(91, 124, 250, 0.18) 360deg
+  );
+}
+
+.btn-running.is-blue::after {
+  background: conic-gradient(
+    from var(--rb-angle),
+    transparent 232deg,
+    rgba(56, 189, 248, 0.55) 286deg,
+    transparent 338deg
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
