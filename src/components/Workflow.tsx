@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   UserPlus,
   ClipboardList,
@@ -61,18 +61,21 @@ const steps = [
 export function Workflow() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { margin: "-20% 0px" });
 
   useEffect(() => {
-    if (!auto) return;
+    // авто-прокрутка шагов только когда секция на экране — не тратим ресурсы вне вида
+    if (!auto || !inView) return;
     const t = setInterval(() => setActive((a) => (a + 1) % steps.length), 3200);
     return () => clearInterval(t);
-  }, [auto]);
+  }, [auto, inView]);
 
   const step = steps[active];
   const Icon = step.icon;
 
   return (
-    <section id="scenariy" className="relative overflow-hidden py-20 sm:py-28">
+    <section ref={sectionRef} id="scenariy" className="relative overflow-hidden py-20 sm:py-28">
       <div className="bg-aurora pointer-events-none absolute inset-0 -z-10 opacity-60" />
       <div className="container-x">
         <SectionHeader

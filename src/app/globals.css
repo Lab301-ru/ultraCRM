@@ -205,6 +205,15 @@ body {
   .btn-running::after {
     display: none;
   }
+  /* Большие размытые слои (blur-3xl) и aurora пересоздают композиционные слои
+     на слабых мобильных GPU — это вызывает мерцание блоков и задержки ввода.
+     На мобильных убираем декоративные размытия. */
+  .blur-3xl {
+    display: none !important;
+  }
+  .bg-aurora::before {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
