@@ -97,10 +97,13 @@ export function Features() {
 
         <RevealGroup
           stagger={0.06}
-          className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {features.map((f) => (
-            <RevealItem key={f.title} className={f.span}>
+          {features.map((f, i) => (
+            <RevealItem
+              key={f.title}
+              className={i === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}
+            >
               <div className="card group relative h-full overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
                 <div
                   className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br ${f.accent} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-20`}
