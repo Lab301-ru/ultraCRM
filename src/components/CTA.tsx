@@ -2,11 +2,47 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Phone, User, Building2 } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Phone,
+  User,
+  Building2,
+  Send,
+  Loader2,
+} from "lucide-react";
 import { Reveal } from "./ui/Reveal";
+import { SITE } from "@/lib/site";
+
+type Status = "idle" | "loading" | "sent" | "error";
 
 export function CTA() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setStatus("loading");
+    const data = new FormData(form);
+    data.append("_subject", "Новая заявка с сайта UltraCRM");
+    data.append("_captcha", "false");
+    data.append("_template", "table");
+    try {
+      const res = await fetch(SITE.formEndpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="cta" className="relative py-20 sm:py-28">
@@ -43,11 +79,23 @@ export function CTA() {
                     </span>
                   ))}
                 </div>
+
+                <div className="mt-7 flex justify-center lg:justify-start">
+                  <a
+                    href={SITE.telegramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/15"
+                  >
+                    <Send className="h-4 w-4 text-brand-pink" />
+                    Написать в Telegram
+                  </a>
+                </div>
               </div>
 
               {/* Form */}
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-8">
-                {sent ? (
+                {status === "sent" ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -60,27 +108,60 @@ export function CTA() {
                     <p className="mt-2 text-sm text-white/70">
                       Менеджер Lab301 свяжется с вами в ближайшее время.
                     </p>
+                    <a
+                      href={SITE.telegramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-pink hover:underline"
+                    >
+                      <Send className="h-4 w-4" /> Или напишите нам в Telegram
+                    </a>
                   </motion.div>
                 ) : (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setSent(true);
-                    }}
-                    className="space-y-3"
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     <h3 className="text-lg font-bold text-white">Получить демо</h3>
-                    <Field icon={User} placeholder="Ваше имя" type="text" />
-                    <Field icon={Phone} placeholder="Телефон" type="tel" />
-                    <Field icon={Building2} placeholder="Название сервиса (необязательно)" type="text" required={false} />
-                    <button type="submit" className="btn-running mt-1 w-full">
+                    <Field name="name" icon={User} placeholder="Ваше имя" type="text" />
+                    <Field name="phone" icon={Phone} placeholder="Телефон" type="tel" />
+                    <Field
+                      name="service"
+                      icon={Building2}
+                      placeholder="Название сервиса (необязательно)"
+                      type="text"
+                      required={false}
+                    />
+                    <button
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="btn-running mt-1 w-full disabled:cursor-not-allowed disabled:opacity-70"
+                    >
                       <span className="btn-running__inner">
-                        Оставить заявку
-                        <ArrowRight className="h-4 w-4" />
+                        {status === "loading" ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Отправляем…
+                          </>
+                        ) : (
+                          <>
+                            Оставить заявку
+                            <ArrowRight className="h-4 w-4" />
+                          </>
+                        )}
                       </span>
                     </button>
+                    {status === "error" && (
+                      <p className="text-center text-xs text-red-300">
+                        Не удалось отправить. Напишите нам в Telegram:{" "}
+                        <a href={SITE.telegramUrl} className="font-semibold underline">
+                          {SITE.telegram}
+                        </a>
+                      </p>
+                    )}
                     <p className="text-center text-[11px] text-white/50">
-                      Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
+                      Нажимая кнопку, вы соглашаетесь с{" "}
+                      <a href="/privacy" className="underline hover:text-white/80">
+                        политикой конфиденциальности
+                      </a>
+                      .
                     </p>
                   </form>
                 )}
@@ -97,11 +178,13 @@ function Field({
   icon: Icon,
   placeholder,
   type,
+  name,
   required = true,
 }: {
   icon: typeof User;
   placeholder: string;
   type: string;
+  name: string;
   required?: boolean;
 }) {
   return (
@@ -109,6 +192,7 @@ function Field({
       <Icon className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
       <input
         type={type}
+        name={name}
         required={required}
         placeholder={placeholder}
         className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder:text-white/40 outline-none transition-colors focus:border-brand-pink/60 focus:bg-white/10"
