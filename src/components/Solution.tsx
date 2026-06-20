@@ -206,17 +206,19 @@ function Panel({ active }: { active: Key }) {
         <div className="mb-3 text-xs font-semibold text-ink">Выручка и прибыль</div>
         <div className="flex h-28 items-end gap-1.5">
           {bars.map((h, i) => (
-            <div key={i} className="flex flex-1 items-end justify-center gap-[2px]">
+            <div key={i} className="flex h-full flex-1 items-end justify-center gap-[2px]">
               <motion.span
-                className="w-1/2 rounded-t bg-brand-green"
-                initial={{ height: 0 }}
-                animate={{ height: `${h}%` }}
+                className="w-1/2 origin-bottom rounded-t bg-brand-green"
+                style={{ height: `${h}%` }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
                 transition={{ duration: 0.6, delay: i * 0.04 }}
               />
               <motion.span
-                className="w-1/2 rounded-t bg-brand-blue"
-                initial={{ height: 0 }}
-                animate={{ height: `${Math.max(12, h - 10)}%` }}
+                className="w-1/2 origin-bottom rounded-t bg-brand-blue"
+                style={{ height: `${Math.max(12, h - 10)}%` }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
                 transition={{ duration: 0.6, delay: i * 0.04 + 0.05 }}
               />
             </div>

@@ -108,6 +108,72 @@ body {
   border-radius: 999px;
 }
 
+/* Animated "running" gradient border (used on the final CTA button) */
+@property --rb-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rb-rotate {
+  to {
+    --rb-angle: 360deg;
+  }
+}
+
+.btn-running {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+  padding: 1.8px; /* ring thickness */
+  background: conic-gradient(
+    from var(--rb-angle),
+    rgba(255, 122, 26, 0.18) 0deg,
+    rgba(255, 122, 26, 0.18) 205deg,
+    #fbb040 248deg,
+    #f43f8e 286deg,
+    #ff7a1a 320deg,
+    rgba(255, 122, 26, 0.18) 360deg
+  );
+  animation: rb-rotate 3s linear infinite;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-running::after {
+  /* soft travelling glow */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--rb-angle),
+    transparent 232deg,
+    rgba(244, 63, 142, 0.55) 286deg,
+    transparent 338deg
+  );
+  filter: blur(11px);
+}
+
+.btn-running:hover {
+  transform: translateY(-1px);
+}
+
+.btn-running__inner {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: #0c0c14;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
