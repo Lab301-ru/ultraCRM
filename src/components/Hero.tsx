@@ -112,7 +112,7 @@ export function Hero() {
               <span className="h-3 w-3 rounded-full bg-[#28C840]" />
               <div className="ml-3 flex-1">
                 <div className="mx-auto w-fit rounded-md bg-ink/5 px-3 py-1 text-[11px] text-ink-muted">
-                  app.ultracrm.ru
+                  app.ultracrm-sc.ru
                 </div>
               </div>
             </div>
