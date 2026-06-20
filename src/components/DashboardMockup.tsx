@@ -76,25 +76,25 @@ function Donut() {
   );
 }
 
-const bars = [62, 95, 40, 96, 30, 44, 52, 60, 78, 50, 64, 70, 58, 30, 74, 80, 72, 88, 48, 46, 38];
+const bars = [62, 95, 44, 80, 52, 70, 58, 88, 64, 95, 72, 84];
 
 function RevenueChart() {
   return (
-    <div className="flex h-28 items-end gap-1.5">
+    <div className="flex h-28 items-end gap-[3px]">
       {bars.map((h, i) => (
-        <div key={i} className="flex flex-1 items-end justify-center gap-[2px]">
+        <div key={i} className="flex h-full flex-1 items-end justify-center gap-px">
           <motion.span
-            className="w-1/2 rounded-t-sm bg-brand-green"
-            initial={{ height: 0 }}
-            whileInView={{ height: `${h}%` }}
-            viewport={{ once: true }}
+            className="w-1/2 origin-bottom rounded-t-sm bg-brand-green"
+            style={{ height: `${h}%` }}
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
             transition={{ duration: 0.7, delay: i * 0.03, ease: "easeOut" }}
           />
           <motion.span
-            className="w-1/2 rounded-t-sm bg-brand-blue"
-            initial={{ height: 0 }}
-            whileInView={{ height: `${Math.max(10, h - 6)}%` }}
-            viewport={{ once: true }}
+            className="w-1/2 origin-bottom rounded-t-sm bg-brand-blue"
+            style={{ height: `${Math.max(10, h - 6)}%` }}
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
             transition={{ duration: 0.7, delay: i * 0.03 + 0.06, ease: "easeOut" }}
           />
         </div>

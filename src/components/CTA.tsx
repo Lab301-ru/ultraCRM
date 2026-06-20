@@ -73,9 +73,11 @@ export function CTA() {
                     <Field icon={User} placeholder="Ваше имя" type="text" />
                     <Field icon={Phone} placeholder="Телефон" type="tel" />
                     <Field icon={Building2} placeholder="Название сервиса (необязательно)" type="text" required={false} />
-                    <button type="submit" className="btn-primary mt-1 w-full">
-                      Оставить заявку
-                      <ArrowRight className="h-4 w-4" />
+                    <button type="submit" className="btn-running mt-1 w-full">
+                      <span className="btn-running__inner">
+                        Оставить заявку
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
                     </button>
                     <p className="text-center text-[11px] text-white/50">
                       Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
