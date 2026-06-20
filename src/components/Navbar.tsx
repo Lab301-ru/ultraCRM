@@ -63,9 +63,11 @@ export function Navbar() {
           <a href="#cta" className="btn-ghost text-sm">
             Войти
           </a>
-          <a href="#cta" className="btn-primary text-sm">
-            Получить демо
-            <ArrowRight className="h-4 w-4" />
+          <a href="#cta" className="btn-running">
+            <span className="btn-running__inner">
+              Получить демо
+              <ArrowRight className="h-4 w-4" />
+            </span>
           </a>
         </div>
 
@@ -102,8 +104,10 @@ export function Navbar() {
                 <a href="#cta" onClick={() => setOpen(false)} className="btn-secondary">
                   Войти
                 </a>
-                <a href="#cta" onClick={() => setOpen(false)} className="btn-primary">
-                  Получить демо <ArrowRight className="h-4 w-4" />
+                <a href="#cta" onClick={() => setOpen(false)} className="btn-running w-full">
+                  <span className="btn-running__inner">
+                    Получить демо <ArrowRight className="h-4 w-4" />
+                  </span>
                 </a>
               </div>
             </div>
