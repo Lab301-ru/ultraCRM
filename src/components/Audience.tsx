@@ -3,6 +3,7 @@
 import {
   Building2,
   Smartphone,
+  Tablet,
   Laptop,
   MonitorSmartphone,
   WashingMachine,
@@ -15,6 +16,7 @@ import { RevealGroup, RevealItem } from "./ui/Reveal";
 const audience = [
   { icon: Building2, title: "Сервисные центры", text: "Полный учёт заказов, мастеров и финансов." },
   { icon: Smartphone, title: "Ремонт телефонов", text: "Быстрый приём и воронка статусов под поток." },
+  { icon: Tablet, title: "Ремонт планшетов", text: "Экраны, АКБ и платы — всё под учётом." },
   { icon: Laptop, title: "Ремонт ноутбуков", text: "Диагностика, запчасти и согласование работ." },
   { icon: MonitorSmartphone, title: "Ремонт компьютеров", text: "Сборки, апгрейды и история по клиенту." },
   { icon: WashingMachine, title: "Бытовая техника", text: "Выездной и стационарный ремонт под контролем." },
@@ -40,10 +42,10 @@ export function Audience() {
 
         <RevealGroup
           stagger={0.06}
-          className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+          className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4"
         >
-          {audience.map((a, i) => (
-            <RevealItem key={a.title} className={i === 6 ? "sm:col-span-2 lg:col-span-1" : ""}>
+          {audience.map((a) => (
+            <RevealItem key={a.title}>
               <div className="group flex h-full flex-col rounded-3xl border border-ink-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-pink/30 hover:shadow-card">
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-gradient-soft text-brand-magenta transition-transform duration-300 group-hover:scale-110">
                   <a.icon className="h-6 w-6" />
