@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -12,6 +12,22 @@ const offset: Record<Direction, { x?: number; y?: number }> = {
   right: { x: -28 },
   none: {},
 };
+
+// На мобильных/тач-устройствах scroll-reveal (whileInView) вызывает мерцание:
+// показ/скрытие адресной строки меняет высоту вьюпорта и переоценивает порог
+// видимости. Поэтому по скроллу анимируем только на десктопе; на мобильных
+// контент просто появляется один раз и больше не зависит от скролла.
+function useScrollReveal() {
+  const [enabled, setEnabled] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setEnabled(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return enabled;
+}
 
 export function Reveal({
   children,
@@ -26,6 +42,7 @@ export function Reveal({
   className?: string;
   once?: boolean;
 }) {
+  const onScroll = useScrollReveal();
   const variants: Variants = {
     hidden: { opacity: 0, ...offset[direction] },
     show: {
@@ -41,7 +58,8 @@ export function Reveal({
       className={className}
       variants={variants}
       initial="hidden"
-      whileInView="show"
+      whileInView={onScroll ? "show" : undefined}
+      animate={onScroll ? undefined : "show"}
       viewport={{ once, margin: "-80px" }}
     >
       {children}
@@ -60,15 +78,17 @@ export function RevealGroup({
   stagger?: number;
   once?: boolean;
 }) {
+  const onScroll = useScrollReveal();
   return (
     <motion.div
       className={className}
       initial="hidden"
-      whileInView="show"
+      whileInView={onScroll ? "show" : undefined}
+      animate={onScroll ? undefined : "show"}
       viewport={{ once, margin: "-80px" }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger } },
+        show: { transition: { staggerChildren: onScroll ? stagger : 0 } },
       }}
     >
       {children}
