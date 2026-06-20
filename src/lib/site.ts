@@ -7,7 +7,7 @@ export const SITE = {
   telegram: "@yuriybyg",
   telegramUrl: "https://t.me/yuriybyg",
   // ссылка для «Сделано в Lab301 Digital Studio»
-  studioUrl: "https://t.me/yuriybyg",
+  studioUrl: "https://lab301.ru",
   // FormSubmit.co — отправка заявок на почту без бэкенда (AJAX-эндпоинт)
   formEndpoint: "https://formsubmit.co/ajax/lab.301@ya.ru",
 };
