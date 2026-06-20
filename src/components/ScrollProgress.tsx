@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export function ScrollProgress() {
@@ -9,6 +10,19 @@ export function ScrollProgress() {
     damping: 30,
     restDelta: 0.001,
   });
+
+  // На мобильных постоянная scroll-привязка добавляет работу главному потоку —
+  // показываем прогресс-бар только на десктопе.
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setShow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  if (!show) return null;
 
   return (
     <motion.div
