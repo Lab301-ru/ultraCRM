@@ -15,7 +15,7 @@ const manrope = Manrope({
   variable: "--font-display",
 });
 
-const SITE_URL = "https://ultracrm.ru";
+const SITE_URL = "https://ultracrm-sc.ru";
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
       "Автоматизируйте приём заказов, работу мастеров, складской учёт, финансы и аналитику в одной системе. CRM для сервисных центров от Lab301.",
     images: [
       {
-        url: "/og-image.png",
-        width: 1536,
-        height: 1024,
+        url: "/og-image-11.png",
+        width: 2560,
+        height: 1440,
         alt: "UltraCRM — CRM для сервисных центров",
       },
     ],
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     title: "UltraCRM — CRM для сервисных центров нового поколения",
     description:
       "Приём заказов, мастера, склад, финансы и аналитика в одной системе. Продукт Lab301.",
-    images: ["/og-image.png"],
+    images: ["/og-image-11.png"],
   },
   icons: {
     icon: [
