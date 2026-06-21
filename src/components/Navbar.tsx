@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "./ui/Logo";
 
@@ -65,48 +65,61 @@ export function Navbar() {
         </div>
 
         <button
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(true)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-ink-line bg-white text-ink lg:hidden"
-          aria-label={open ? "Закрыть меню" : "Открыть меню"}
+          aria-label="Открыть меню"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <Menu className="h-5 w-5" />
         </button>
       </motion.div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="mx-auto mt-2 w-[min(100%-1.5rem,72rem)] rounded-2xl border border-ink-line bg-white p-3 shadow-card lg:hidden"
-          >
-            <div className="flex flex-col">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-ink transition-colors hover:bg-ink/5"
-                >
-                  {l.label}
-                </a>
-              ))}
-              <div className="mt-2 flex flex-col gap-2 border-t border-ink-line pt-3">
-                <a href="#cta" onClick={() => setOpen(false)} className="btn-secondary">
-                  Войти
-                </a>
-                <a href="#cta" onClick={() => setOpen(false)} className="btn-running w-full">
-                  <span className="btn-running__inner">
-                    Получить демо <ArrowRight className="h-4 w-4" />
-                  </span>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Полноэкранное мобильное меню — непрозрачный оверлей поверх всего
+          контента. Рендерится мгновенно (без transform/AnimatePresence),
+          чтобы исключить «исчезновение» меню на iOS. */}
+      {open && (
+        <div className="fixed inset-0 z-[100] flex flex-col overflow-y-auto bg-white lg:hidden">
+          <div className="flex items-center justify-between px-5 pt-4">
+            <a
+              href="#top"
+              onClick={() => setOpen(false)}
+              aria-label="UltraCRM на главную"
+            >
+              <Logo />
+            </a>
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Закрыть меню"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-ink-line bg-white text-ink"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-1 px-4 pt-6">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded-2xl px-4 py-3.5 text-lg font-semibold text-ink transition-colors hover:bg-ink/5"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-auto flex flex-col gap-3 border-t border-ink-line p-5">
+            <a href="#cta" onClick={() => setOpen(false)} className="btn-secondary w-full">
+              Войти
+            </a>
+            <a href="#cta" onClick={() => setOpen(false)} className="btn-running w-full">
+              <span className="btn-running__inner">
+                Получить демо <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
