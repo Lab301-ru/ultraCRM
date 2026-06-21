@@ -94,14 +94,14 @@ export function Hero() {
           >
             {[
               { v: 915, s: "+", label: "заказов закрыто" },
-              { v: 9, s: " статусов", label: "воронка ремонта" },
-              { v: 1, s: " окно", label: "вся работа центра" },
+              { v: 9, s: "", label: "статусов воронки" },
+              { v: 1, s: "", label: "окно для сервиса" },
             ].map((x) => (
               <div key={x.label} className="text-center lg:text-left">
-                <div className="font-display text-2xl font-extrabold text-ink">
+                <div className="font-display text-2xl font-extrabold leading-none text-ink">
                   <AnimatedCounter value={x.v} suffix={x.s} />
                 </div>
-                <div className="mt-1 text-xs text-ink-muted">{x.label}</div>
+                <div className="mt-1.5 text-xs leading-snug text-ink-muted">{x.label}</div>
               </div>
             ))}
           </motion.div>
