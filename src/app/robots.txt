@@ -2,3 +2,10 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ultracrm-sc.ru/sitemap.xml
+
+# Указываем Яндексу главное зеркало (HTTPS) — устраняет ошибку
+# «Главный адрес сайта не использует HTTPS-протокол» и редирект-проблему
+# при загрузке favicon.
+User-agent: Yandex
+Allow: /
+Host: https://ultracrm-sc.ru
