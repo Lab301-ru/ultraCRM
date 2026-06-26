@@ -93,8 +93,8 @@ export function Hero() {
             className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-ink-line pt-6 lg:max-w-none"
           >
             {[
-              { v: 915, s: "+", label: "заказов закрыто" },
-              { v: 9, s: "", label: "статусов воронки" },
+              { v: 919, s: "+", label: "заказов закрыто" },
+              { v: 10, s: "", label: "статусов воронки" },
               { v: 1, s: "", label: "окно для сервиса" },
             ].map((x) => (
               <div key={x.label} className="text-center lg:text-left">

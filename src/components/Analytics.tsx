@@ -17,8 +17,8 @@ const points = [
 const stats = [
   { icon: Wallet, value: 1702400, suffix: " ₽", label: "Выручка за год", color: "text-brand-green" },
   { icon: TrendingUp, value: 64, suffix: "%", label: "Маржинальность", color: "text-brand-blue" },
-  { icon: Activity, value: 915, suffix: "", label: "Заказов закрыто", color: "text-brand-magenta" },
-  { icon: PieChart, value: 9, suffix: "", label: "Статусов воронки", color: "text-brand-orange" },
+  { icon: Activity, value: 919, suffix: "", label: "Заказов закрыто", color: "text-brand-magenta" },
+  { icon: PieChart, value: 10, suffix: "", label: "Статусов воронки", color: "text-brand-orange" },
 ];
 
 export function Analytics() {
