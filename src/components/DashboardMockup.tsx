@@ -4,9 +4,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
+  BarChart3,
   ClipboardList,
+  Wrench,
+  Boxes,
   Users,
   BookOpen,
+  Globe,
+  Video,
+  Phone,
+  Map,
+  MessageCircle,
+  Receipt,
+  CreditCard,
   Settings,
   Moon,
 } from "lucide-react";
@@ -14,31 +24,49 @@ import { AnimatedCounter } from "./ui/AnimatedCounter";
 
 const nav = [
   { icon: LayoutDashboard, label: "Дашборд", active: true },
+  { icon: BarChart3, label: "Аналитика" },
   { icon: ClipboardList, label: "Заказы" },
+  { icon: Wrench, label: "Запчасти" },
+  { icon: Boxes, label: "Склад" },
   { icon: Users, label: "Клиенты" },
   { icon: BookOpen, label: "Справочник" },
+  { icon: Globe, label: "Управление сайтом" },
+  { icon: Video, label: "Видеонаблюдение" },
+  { icon: Phone, label: "Телефония" },
+  { icon: Map, label: "Карты" },
+  { icon: MessageCircle, label: "Мессенджеры" },
+  { icon: Receipt, label: "Счёт онлайн" },
+  { icon: CreditCard, label: "Оплата" },
   { icon: Settings, label: "Настройки" },
 ];
 
 const kpis = [
-  { value: 1, label: "Принято сегодня", color: "text-brand-blue" },
-  { value: 8, label: "В ремонте", color: "text-brand-magenta" },
-  { value: 9, label: "Ожидают запчасти", color: "text-brand-orange" },
-  { value: 4, label: "Готовы к выдаче", color: "text-brand-green" },
-  { value: 2, label: "Выдано сегодня", color: "text-brand-pink" },
-  { value: 915, label: "Выдано за всё время", color: "text-brand-magenta" },
+  { value: 0, label: "Принято сегодня", color: "text-brand-blue" },
+  { value: 10, label: "В ремонте", color: "text-brand-magenta" },
+  { value: 10, label: "Ожидают запчасти", color: "text-brand-orange" },
+  { value: 3, label: "Готовы к выдаче", color: "text-brand-green" },
+  { value: 0, label: "Выдано сегодня", color: "text-brand-pink" },
+  { value: 919, label: "Выдано за всё время", color: "text-brand-magenta" },
+];
+
+const finance = [
+  { period: "Сегодня", value: "0" },
+  { period: "Месяц", value: "182 050" },
+  { period: "Год", value: "1 723 400" },
+  { period: "Всё время", value: "3 470 350" },
 ];
 
 const statuses = [
-  { label: "Принят", value: 6, color: "#5B7CFA" },
-  { label: "Диагностика", value: 13, color: "#9B5BFA" },
+  { label: "Не принят", value: 4, color: "#8A8A9A" },
+  { label: "Принят", value: 12, color: "#5B7CFA" },
+  { label: "Диагностика", value: 12, color: "#9B5BFA" },
   { label: "Ожидание согласования", value: 2, color: "#FBB040" },
-  { label: "Ожидание запчастей", value: 9, color: "#FF7A1A" },
-  { label: "В ремонте", value: 8, color: "#22B8CF" },
-  { label: "Готов", value: 4, color: "#3FC56B" },
-  { label: "Выдан", value: 915, color: "#F43F8E" },
-  { label: "Отказ", value: 52, color: "#FB5C4C" },
-  { label: "Утиль", value: 50, color: "#8A8A9A" },
+  { label: "Ожидание запчастей", value: 10, color: "#FF7A1A" },
+  { label: "В ремонте", value: 10, color: "#22B8CF" },
+  { label: "Готов", value: 3, color: "#3FC56B" },
+  { label: "Выдан с ремонтом", value: 919, color: "#F43F8E" },
+  { label: "Выдан без ремонта", value: 53, color: "#FB5C4C" },
+  { label: "Утиль", value: 51, color: "#5A5A6E" },
 ];
 
 // Donut built from the real status distribution.
@@ -107,8 +135,8 @@ export function DashboardMockup({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex h-full w-full overflow-hidden rounded-2xl bg-[#F7F7FB] text-left">
       {/* Sidebar */}
-      <aside className="hidden w-44 shrink-0 flex-col border-r border-ink-line bg-white p-3 sm:flex">
-        <div className="mb-5 flex items-center gap-2 px-1.5 pt-1">
+      <aside className="thin-scroll hidden w-44 shrink-0 flex-col overflow-y-auto border-r border-ink-line bg-white p-3 sm:flex">
+        <div className="mb-4 flex items-center gap-2 px-1.5 pt-1">
           <Image
             src="/Logo.png"
             alt="UltraCRM"
@@ -117,18 +145,18 @@ export function DashboardMockup({ compact = false }: { compact?: boolean }) {
             className="h-6 w-auto"
           />
         </div>
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-[3px]">
           {nav.map((n) => (
             <div
               key={n.label}
-              className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium ${
+              className={`flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium ${
                 n.active
                   ? "bg-brand-gradient-soft text-brand-magenta"
                   : "text-ink-muted"
               }`}
             >
-              <n.icon className="h-4 w-4" />
-              {n.label}
+              <n.icon className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">{n.label}</span>
             </div>
           ))}
         </nav>
@@ -159,16 +187,24 @@ export function DashboardMockup({ compact = false }: { compact?: boolean }) {
           ))}
         </div>
 
-        {/* Finance row */}
+        {/* Finance row (4 columns: Сегодня / Месяц / Год / Всё время) */}
         <div className="mb-3 grid grid-cols-2 gap-2">
           {[
-            { title: "Выручка", value: "1 702 400", accent: "text-brand-green" },
-            { title: "Чистая прибыль", value: "1 702 400", accent: "text-brand-blue" },
-          ].map((f) => (
-            <div key={f.title} className="rounded-xl border border-ink-line bg-white p-2.5">
-              <div className="text-[11px] font-semibold text-ink-muted">{f.title}</div>
-              <div className={`mt-1 text-sm font-extrabold ${f.accent}`}>{f.value} ₽</div>
-              <div className="text-[9px] text-ink-muted">за год</div>
+            { title: "Выручка", accent: "text-brand-green" },
+            { title: "Чистая прибыль", accent: "text-brand-blue" },
+          ].map((card) => (
+            <div key={card.title} className="rounded-xl border border-ink-line bg-white p-2.5">
+              <div className="mb-1.5 text-[11px] font-semibold">{card.title}</div>
+              <div className="grid grid-cols-4 gap-1">
+                {finance.map((f) => (
+                  <div key={f.period}>
+                    <div className={`text-[10.5px] font-extrabold leading-none ${card.accent}`}>
+                      {f.value} ₽
+                    </div>
+                    <div className="mt-0.5 text-[9px] text-ink-muted">{f.period}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -181,7 +217,7 @@ export function DashboardMockup({ compact = false }: { compact?: boolean }) {
               <div className="flex items-center gap-3">
                 <Donut />
                 <div className="grid flex-1 grid-cols-1 gap-1">
-                  {statuses.slice(0, 6).map((s) => (
+                  {statuses.slice(0, 7).map((s) => (
                     <div key={s.label} className="flex items-center gap-1.5 text-[9.5px]">
                       <span
                         className="h-2 w-2 shrink-0 rounded-full"
