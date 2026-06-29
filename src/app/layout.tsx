@@ -75,14 +75,9 @@ export const metadata: Metadata = {
     images: ["/og-image-11.png"],
   },
   icons: {
-    icon: [
-      // /favicon.ico — первым, как в примере из доки Яндекса
-      { url: "/favicon.ico", type: "image/x-icon" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-120x120.png", sizes: "120x120", type: "image/png" },
-    ],
+    // По инструкции Яндекса — один тег с рекомендованным SVG.
+    // Несколько <link rel="icon"> провоцируют выбор «не той» иконки роботом.
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   manifest: "/site.webmanifest",
